@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: todos
@@ -10,4 +12,7 @@
 #  updated_at  :datetime         not null
 #
 class Todo < ApplicationRecord
+  def self.ransackable_attributes(auth_object = nil)
+    %w[title due_date]
+  end
 end

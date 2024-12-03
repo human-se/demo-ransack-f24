@@ -107,3 +107,6 @@ gem 'faker'
 
 # Add pagination
 gem 'pagy', '~> 9.3' # omit patch digit
+
+# Add search and sort features
+gem 'ransack'
