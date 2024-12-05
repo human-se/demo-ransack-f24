@@ -1,4 +1,4 @@
-# Searching and Sorting with Ransack
+# Searching and Sorting with Ransack Demo
 
 This demonstration shows how to use the [Ransack](https://github.com/activerecord-hackery/ransack#readme) gem to add searching and sorting to the todos index page from the [Pagination with Pagy Demo](https://github.com/human-se/demo-pagy-f24#readme).
 
@@ -12,9 +12,9 @@ If you would like to follow along with the video, clone this repo and switch to 
 
 ## Steps to Add Searching and Sorting to the Todos Index Page
 
-- **Step 1:** Add `gem 'ransack'` to the `Gemfile` and `bundle install`.
+- **Step 1:** In the `Gemfile`, insert `gem 'ransack'` at the bottom. Then `bundle install`.
 
-- **Step 2:** In the `TodosController.index` method, instantiate Ransack `Todo` search object, sort the results in ascending order by due date, and retrieve the search results (also apply pagination with Pagy).
+- **Step 2:** In `app/controllers/todos_controller.rb`, in the `index` method, instantiate a Ransack `Todo` search object, sort the search results in ascending order by due date, and retrieve the search results (also apply pagination with Pagy).
 
 ```ruby
 @q = Todo.ransack(params[:q])
@@ -22,18 +22,17 @@ If you would like to follow along with the video, clone this repo and switch to 
 @pagy, @todos = pagy(@q.result(distinct: true), limit: 10)
 ```
 
-- **Step 3:** In the `index.html.erb` view template, insert the search form above the table of todos.
+- **Step 3:** In `app/views/todos/index.html.erb`, insert the search form above the table of todos.
 
 ```erb
 <%= search_form_for @q do |f| %>
+  <%= f.label :title_cont %>
+  <%= f.search_field :title_cont %>
 
-  <%= f.label :title_cont, class: 'form-label form-label-sm mt-3' %>
-  <%= f.search_field :title_cont, class: 'form-control form-control-sm' %>
+  <%= f.label :due_date_eq %>
+  <%= f.search_field :due_date_eq, type: :date %>
 
-  <%= f.label :due_date_eq, class: 'form-label  form-label-sm mt-2' %>
-  <%= f.search_field :due_date_eq, type: :date, class: 'form-control form-control-sm' %>
-
-  <%= f.submit class: 'btn btn-primary btn-sm my-3' %>
+  <%= f.submit %>
 <% end %>
 ```
 
@@ -44,12 +43,32 @@ If you would like to follow along with the video, clone this repo and switch to 
 <th><%= sort_link(@q, :due_date) %></th>
 ```
 
-- **Step 5:** Add to the `Todo` model class a class method (required by Ransack for security purposes) that returns an array of attributes that Ransack is permitted to make sortable.
+- **Step 5:** In `app/models/todo.rb`, add to the `Todo` model class a class method (required by Ransack for security purposes) that returns an array of attributes that Ransack is permitted to make sortable.
 
 ```ruby
 def self.ransackable_attributes(auth_object = nil)
   %w[title due_date]
 end
+```
+
+- **Step 6:** Adjust the layout and style of the search form (see Bootstrap docs on [form controls](https://getbootstrap.com/docs/5.2/forms/form-control/) and [form layout](https://getbootstrap.com/docs/5.2/forms/layout/)).
+
+```erb
+<%= search_form_for @q do |f| %>
+  <div class="mb-3">
+    <%= f.label :title_cont, class: 'form-label form-label-sm' %>
+    <%= f.search_field :title_cont, class: 'form-control form-control-sm' %>
+  </div>
+
+  <div class="mb-3">
+    <%= f.label :due_date_eq, class: 'form-label  form-label-sm' %>
+    <%= f.search_field :due_date_eq, type: :date, class: 'form-control form-control-sm' %>
+  </div>
+
+  <div class="mb-3">
+    <%= f.submit class: 'btn btn-primary btn-sm' %>
+  </div>
+<% end %>
 ```
 
 ## Further Reading

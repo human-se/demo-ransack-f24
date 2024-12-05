@@ -1,14 +1,19 @@
 <h1>To-Do Items</h1>
 
 <%= search_form_for @q do |f| %>
+  <div class="mb-3">
+    <%= f.label :title_cont, class: 'form-label form-label-sm' %>
+    <%= f.search_field :title_cont, class: 'form-control form-control-sm' %>
+  </div>
 
-  <%= f.label :title_cont, class: 'form-label form-label-sm mt-3' %>
-  <%= f.search_field :title_cont, class: 'form-control form-control-sm' %>
+  <div class="mb-3">
+    <%= f.label :due_date_eq, class: 'form-label  form-label-sm' %>
+    <%= f.search_field :due_date_eq, type: :date, class: 'form-control form-control-sm' %>
+  </div>
 
-  <%= f.label :due_date_eq, class: 'form-label  form-label-sm mt-2' %>
-  <%= f.search_field :due_date_eq, type: :date, class: 'form-control form-control-sm' %>
-
-  <%= f.submit class: 'btn btn-primary btn-sm my-3' %>
+  <div class="mb-3">
+    <%= f.submit class: 'btn btn-primary btn-sm' %>
+  </div>
 <% end %>
 
 <table class="table table-hover">
