@@ -8,7 +8,7 @@ If you would like to follow along with the video, clone this repo and switch to 
 
 [![Screenshot of todos index page with a search form at the top of the page and clickable column headings that sort by column](todo_index_searching_and_sorting.png)](https://youtu.be/OInmcjheFTw?si=C2GNsf6HwQv7jRx0)
 
-- <https://youtu.be/OInmcjheFTw?si=C2GNsf6HwQv7jRx0>
+### [🎦 Watch the Video Demo](https://youtu.be/OInmcjheFTw?si=C2GNsf6HwQv7jRx0)
 
 ## Steps to Add Searching and Sorting to the Todos Index Page
 
